@@ -18,9 +18,9 @@ class Board {
     //nested for loop
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
-            std::cout << MainBoard[i][j] << " ";
+            std::cout  << " │ "  << MainBoard[i][j];
         }
-    std::cout << std::endl;
+    std::cout << " │ "<< std::endl;
     }
     }
 
