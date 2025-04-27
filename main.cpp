@@ -45,12 +45,14 @@ class Board {
     }
 
     //basic changer
-    void change() {
+    bool change() {
         if (CurrentPlayer == true) {
             CurrentPlayer = false;
+            return false;
         } 
         else if (CurrentPlayer == false) {
             CurrentPlayer = true;
+            return true;
         }
 
     }
@@ -67,21 +69,42 @@ class Board {
 
 int main() {
     Board main;
-    //add O to 0,0
-    main.MovePiece(0, 0);
-    //change to X
-    main.change();
-    //add X to 1,1
-    main.MovePiece(1,1);
-    //change back to O
-    main.change();
-    //add O to 2,2
-    main.MovePiece(2,2);
-    //draw the finalized board
-    main.DrawBoard();
-    //try adding O to 3,3. Should return in the error message set
-    main.MovePiece(3,3);
-    std::cout << "Hello World";
-    return 0;
-}
+    bool CurrentTurn = false; //who's turn is it currently,, False = O's
+    //main game loop
+    while (true) {
+        int rowDec, colDec;
+        //cases for who's turn
+        if (CurrentTurn == false) {
+            std::cout << "O's Turn" << std::endl;
+        }
+        if (CurrentTurn == true) {
+            std::cout << "X's Turn" << std::endl;
+        }
+            std::cout << "Enter Row Number -> ";
+            std::cin >> rowDec;
+            //exception handling
+            if (rowDec < 3) {
+                std::cout << "Good value" << std::endl;
+            }
+            else {
+                std::cout << "Invalid Try again" << std::endl;
+                continue;
+            }
+            std::cout << "Enter Col Number -> ";
+            std::cin >> colDec;
+
+            //exception handling
+            if (colDec < 3 && rowDec < 3) {
+                main.MovePiece(rowDec, colDec);
+                main.DrawBoard();
+                CurrentTurn = main.change();
+            } else {
+                std::cout << "Invalid Try again" << std::endl;
+                continue;
+            }
+
+        }
+
+    }
+
 
