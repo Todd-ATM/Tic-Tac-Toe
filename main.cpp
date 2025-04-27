@@ -5,14 +5,7 @@ class Board {
   bool checked[3][3];
     //constructor
     Board() {
-        char value = ' '; 
-        //nested for loops to iterate, and assign value
-        //to each element in our 2d array
-        for (int i = 0; i < Row; i++) {
-            for (int j = 0; j < Col; j++) {
-                MainBoard[i][j] = value;
-            }
-        }
+        resetBoard();
     }
 
    void DrawBoard() {
@@ -41,9 +34,36 @@ class Board {
                         }
         }
 
-        
 
 
+
+    }
+
+    bool checkWin() {
+        char winner;
+        //check rows
+        for (int i = 0; i < Row; i++) {
+            if (MainBoard[i][0] == MainBoard[i][1] && MainBoard[i][1] == MainBoard[i][2] && MainBoard[i][0] != ' ') {
+                winner = MainBoard[i][0];
+                std::cout << winner << ": Won the game" << std::endl;
+                return true;
+            }
+            else return false;
+        }
+    }
+
+    void resetBoard() {
+        char value = ' '; 
+        //nested for loops to iterate, and assign value
+        //to each element in our 2d array
+        for (int i = 0; i < Row; i++) {
+            for (int j = 0; j < Col; j++) {
+                MainBoard[i][j] = value;
+                checked[i][j] = false;
+            }
+        }
+
+        //reset checked board's values
     }
 
     //basic changer
@@ -58,7 +78,6 @@ class Board {
         } else 
         std::cout << "Player invalid" << std::endl;
         return false;
-
     }
 
 
@@ -70,18 +89,40 @@ class Board {
     const char playerO = 'O';
     bool CurrentPlayer = false;
     //identical to mainboard but at each element, adds checked bool for true
-
 };
 
 int main() {
     Board main;
     bool CurrentTurn = false; //who's turn is it currently, False = O's
+    bool isPlaying = true;
+    char FinalDec;
     main.DrawBoard();
     //main game loop
-    while (true) {
+    while (isPlaying) {
         int rowDec, colDec;
         char next; //char for next line in cin buffer
         //cases for who's turn
+        bool WinStatus;
+
+        //call wincheck everytime we restart
+        WinStatus = main.checkWin();
+
+        if (WinStatus) {
+            char FinalDec;
+            std::cout << "Would you like to try again?" << std::endl;
+            std::cout << "Y │ N" << std::endl;
+            std::cin >> FinalDec;
+
+            if (FinalDec == 'Y') {
+                std::cout << "You chose to play again. " << std::endl;
+                main.resetBoard();
+                continue;
+            } else if (FinalDec = 'N') {
+                isPlaying = false;
+                break;
+            }
+
+        }
         if (CurrentTurn == false) {
             std::cout << "O's Turn" << std::endl;
         }
@@ -141,6 +182,7 @@ int main() {
 
         }
 
+        std::cout << "Thanks for playing. ";
     }
 
 
