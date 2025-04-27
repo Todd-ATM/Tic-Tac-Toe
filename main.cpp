@@ -39,18 +39,47 @@ class Board {
 
     }
 
-    bool checkWin() {
+    bool checkWin(int &spaceChecker) {
         char winner;
         //check rows
         for (int i = 0; i < Row; i++) {
             if (MainBoard[i][0] == MainBoard[i][1] && MainBoard[i][1] == MainBoard[i][2] && MainBoard[i][0] != ' ') {
                 winner = MainBoard[i][0];
                 std::cout << winner << ": Won the game" << std::endl;
+                spaceChecker = 0;
+                return true;
+            }
+        }
+        for (int i = 0; i < Col; i++) {
+            //check col
+            if (MainBoard[0][i] == MainBoard[1][i] && MainBoard[1][i] == MainBoard[2][i] && MainBoard[0][i] != ' ') {
+                winner = MainBoard[0][i];
+                std::cout << winner << ": Won the game" << std::endl;
+                spaceChecker = 0;
+                return true;
+            }
+        }
+            
+            //first diagonal
+             if (MainBoard[0][0] == MainBoard[1][1] && MainBoard[1][1] == MainBoard[2][2] && MainBoard[0][0] != ' ') {
+                winner = MainBoard[0][0];
+                std::cout << winner << ": Won the game" << std::endl;
+                spaceChecker = 0;
+                return true;
+            }
+            //last diagonal
+             if (MainBoard[0][2] == MainBoard[1][1] && MainBoard[1][1] == MainBoard[2][0] && MainBoard[0][2] != ' ') {
+                winner = MainBoard[0][0];
+                std::cout << winner << ": Won the game" << std::endl;
+                spaceChecker = 0;
+                return true;
+            }  if (spaceChecker == 9) {
+                std::cout << "TIE. " << std::endl;
+                spaceChecker = 0;
                 return true;
             }
             else return false;
         }
-    }
 
     void resetBoard() {
         char value = ' '; 
@@ -96,6 +125,7 @@ int main() {
     bool CurrentTurn = false; //who's turn is it currently, False = O's
     bool isPlaying = true;
     char FinalDec;
+    int spaceChecker = 0;
     main.DrawBoard();
     //main game loop
     while (isPlaying) {
@@ -105,13 +135,15 @@ int main() {
         bool WinStatus;
 
         //call wincheck everytime we restart
-        WinStatus = main.checkWin();
+        WinStatus = main.checkWin(spaceChecker);
 
         if (WinStatus) {
             char FinalDec;
             std::cout << "Would you like to try again?" << std::endl;
             std::cout << "Y │ N" << std::endl;
             std::cin >> FinalDec;
+
+            std::toupper(FinalDec);
 
             if (FinalDec == 'Y') {
                 std::cout << "You chose to play again. " << std::endl;
@@ -142,6 +174,7 @@ int main() {
                 next = std::cin.peek(); //set next char in line to next char variable
                 if (next == '\n') { 
                     std::cout << "You're good to go" << std::endl;
+                    spaceChecker++;
                 }
                 else {
                     std::cin.ignore(100, '\n'); //flush bad input
