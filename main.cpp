@@ -4,7 +4,7 @@ class Board {
   public:
     //constructor
     Board() {
-        char value = ' ';
+        char value = ' '; 
         //nested for loops to iterate, and assign value
         //to each element in our 2d array
         for (int i = 0; i < Row; i++) {
@@ -37,9 +37,20 @@ class Board {
                             MainBoard[row][col] = playerO;
                         }
         }
+        
 
 
     }
+
+    //basic changer
+    void change() {
+        if (CurrentPlayer = true) {
+            CurrentPlayer = false;
+        } else
+        CurrentPlayer = true;
+
+    }
+
 
   private:
     int Row = 3;
@@ -52,10 +63,6 @@ class Board {
 
 int main() {
     Board main;
-    main.MovePiece(1, 1);
-    main.MovePiece(2,2);
-    main.MovePiece(0,0);
-    main.DrawBoard();
     std::cout << "Hello World";
     return 0;
 }
