@@ -2,6 +2,7 @@
 
 class Board {
   public:
+  bool checked[3][3];
     //constructor
     Board() {
         char value = ' '; 
@@ -32,13 +33,14 @@ class Board {
                         // if current player is X
                         if (CurrentPlayer == true) {
                             MainBoard[row][col] = playerX;
+                            checked[row][col] = true;
                         // if current player is O
                         } else if (CurrentPlayer == false) {
                             MainBoard[row][col] = playerO;
+                            checked[row][col] = true;
                         }
         }
-        else 
-        std::cout << "not valid range" << std::endl;
+
         
 
 
@@ -53,7 +55,9 @@ class Board {
         else if (CurrentPlayer == false) {
             CurrentPlayer = true;
             return true;
-        }
+        } else 
+        std::cout << "Player invalid" << std::endl;
+        return false;
 
     }
 
@@ -65,14 +69,18 @@ class Board {
     const char playerX = 'X';
     const char playerO = 'O';
     bool CurrentPlayer = false;
+    //identical to mainboard but at each element, adds checked bool for true
+
 };
 
 int main() {
     Board main;
-    bool CurrentTurn = false; //who's turn is it currently,, False = O's
+    bool CurrentTurn = false; //who's turn is it currently, False = O's
+    main.DrawBoard();
     //main game loop
     while (true) {
         int rowDec, colDec;
+        char next; //char for next line in cin buffer
         //cases for who's turn
         if (CurrentTurn == false) {
             std::cout << "O's Turn" << std::endl;
@@ -83,8 +91,22 @@ int main() {
             std::cout << "Enter Row Number -> ";
             std::cin >> rowDec;
             //exception handling
+            if (!std::cin) { //if user enters non number
+                std::cin.clear(); //clear fail state
+                std::cin.ignore(100, '\n'); //flush bad input
+                std::cout << "Please enter valid NUMBER" << std::endl;
+                continue; //restart loop
+            }
             if (rowDec < 3) {
-                std::cout << "Good value" << std::endl;
+                next = std::cin.peek(); //set next char in line to next char variable
+                if (next == '\n') { 
+                    std::cout << "You're good to go" << std::endl;
+                }
+                else {
+                    std::cin.ignore(100, '\n'); //flush bad input
+                    std::cout << "Please enter valid NUMBER" << std::endl;
+                    continue; //restart loop
+                }
             }
             else {
                 std::cout << "Invalid Try again" << std::endl;
@@ -94,10 +116,24 @@ int main() {
             std::cin >> colDec;
 
             //exception handling
-            if (colDec < 3 && rowDec < 3) {
-                main.MovePiece(rowDec, colDec);
-                main.DrawBoard();
-                CurrentTurn = main.change();
+            if (!std::cin) { //if user enters non number
+                std::cin.clear(); //clear fail state
+                std::cin.ignore(100, '\n'); //flush bad input
+                std::cout << "Please enter valid Row Number. Retry" << std::endl;
+                continue; //restart loop
+            }
+            if (colDec < 3 && rowDec < 3 && !main.checked[rowDec][colDec]) {
+                next = std::cin.peek();
+                if (next == '\n') {
+                    main.MovePiece(rowDec, colDec);
+                    main.DrawBoard();
+                    CurrentTurn = main.change();
+                } else {
+                    std::cin.ignore(100, '\n'); //flush bad input
+                    std::cout << "Please enter valid Col Number. Retry" << std::endl;
+                    continue; //restart loop
+                }
+
             } else {
                 std::cout << "Invalid Try again" << std::endl;
                 continue;
