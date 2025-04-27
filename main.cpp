@@ -15,7 +15,7 @@ class Board {
     }
 
    void DrawBoard() {
-    //nested for loop
+    //nested for loop to draw horizontal and vertical dividers of our board
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             std::cout  << " │ "  << MainBoard[i][j];
@@ -26,14 +26,35 @@ class Board {
     }
     }
 
+    void MovePiece(int row, int col) {
+        //add scope
+        if (row <= 3 && col <= 3) {
+                        // if current player is X
+                        if (CurrentPlayer == true) {
+                            MainBoard[row][col] = playerX;
+                        // if current player is O
+                        } else if (CurrentPlayer == false) {
+                            MainBoard[row][col] = playerO;
+                        }
+        }
+
+
+    }
+
   private:
     int Row = 3;
     int Col = 3;
     char MainBoard[3][3];
+    const char playerX = 'X';
+    const char playerO = 'O';
+    bool CurrentPlayer = false;
 };
 
 int main() {
     Board main;
+    main.MovePiece(1, 1);
+    main.MovePiece(2,2);
+    main.MovePiece(0,0);
     main.DrawBoard();
     std::cout << "Hello World";
     return 0;
