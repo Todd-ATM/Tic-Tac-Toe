@@ -27,8 +27,8 @@ class Board {
     }
 
     void MovePiece(int row, int col) {
-        //add scope
-        if (row <= 3 && col <= 3) {
+        //scope
+        if (row < 3 && col < 3) {
                         // if current player is X
                         if (CurrentPlayer == true) {
                             MainBoard[row][col] = playerX;
@@ -37,6 +37,8 @@ class Board {
                             MainBoard[row][col] = playerO;
                         }
         }
+        else 
+        std::cout << "not valid range" << std::endl;
         
 
 
@@ -44,10 +46,12 @@ class Board {
 
     //basic changer
     void change() {
-        if (CurrentPlayer = true) {
+        if (CurrentPlayer == true) {
             CurrentPlayer = false;
-        } else
-        CurrentPlayer = true;
+        } 
+        else if (CurrentPlayer == false) {
+            CurrentPlayer = true;
+        }
 
     }
 
@@ -63,6 +67,20 @@ class Board {
 
 int main() {
     Board main;
+    //add O to 0,0
+    main.MovePiece(0, 0);
+    //change to X
+    main.change();
+    //add X to 1,1
+    main.MovePiece(1,1);
+    //change back to O
+    main.change();
+    //add O to 2,2
+    main.MovePiece(2,2);
+    //draw the finalized board
+    main.DrawBoard();
+    //try adding O to 3,3. Should return in the error message set
+    main.MovePiece(3,3);
     std::cout << "Hello World";
     return 0;
 }
