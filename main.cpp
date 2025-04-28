@@ -174,7 +174,6 @@ int main() {
                 next = std::cin.peek(); //set next char in line to next char variable
                 if (next == '\n') { 
                     std::cout << "You're good to go" << std::endl;
-                    spaceChecker++;
                 }
                 else {
                     std::cin.ignore(100, '\n'); //flush bad input
@@ -184,7 +183,6 @@ int main() {
             }
             else {
                 std::cout << "Invalid Try again" << std::endl;
-                spaceChecker--;
                 continue;
             }
             std::cout << "Enter Col Number -> ";
@@ -203,6 +201,7 @@ int main() {
                 colDec = colDec - 1;
                 if (next == '\n' && !main.checked[rowDec][colDec]) {
                     main.MovePiece(rowDec, colDec);
+                    spaceChecker++;
                     main.DrawBoard();
                     CurrentTurn = main.change();
                 } else {
@@ -213,7 +212,6 @@ int main() {
 
             } else {
                 std::cout << "Invalid Try again" << std::endl;
-                spaceChecker--;
                 continue;
             }
 
