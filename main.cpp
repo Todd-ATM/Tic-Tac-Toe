@@ -125,6 +125,13 @@ int main() {
     bool isPlaying = true;
     char FinalDec;
     int spaceChecker = 0;
+
+    //opening message 
+    std::cout << "# Welcome to Tic Tac Toe ! " << std::endl;
+    std::cout << std::endl;
+    std::cout << "This is a starter project to showcase a bit of Object Oriented Programming with " << std::endl;
+    std::cout << "a board class, as well user input validation, and game logic" << std::endl;
+    std::cout << std::endl;
     main.DrawBoard();
     //main game loop
     while (isPlaying) {
@@ -183,7 +190,7 @@ int main() {
         if (CurrentTurn == true) {
             std::cout << "X's Turn" << std::endl;
         }
-            std::cout << "Enter Row Number -> ";
+            std::cout << "Enter Row Number(1-3) -> ";
             std::cin >> rowDec;
             //exception handling
             if (!std::cin) { //if user enters non number
@@ -208,7 +215,7 @@ int main() {
                 continue;
             }
 
-            std::cout << "Enter Col Number -> ";
+            std::cout << "Enter Col Number(1-3) -> ";
             std::cin >> colDec;
 
             //exception handling
