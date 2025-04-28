@@ -10,6 +10,7 @@ class Board {
 
    void DrawBoard() {
     //nested for loop to draw horizontal and vertical dividers of our board
+    std::cout << " +---+---+---+" << std::endl;
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
             std::cout  << " │ "  << MainBoard[i][j];
@@ -153,7 +154,7 @@ int main() {
             next = std::cin.peek();
 
             if (next == '\n') {
-                std::toupper(FinalDec);
+                FinalDec = std::toupper(FinalDec);
 
                 if (FinalDec == 'Y') {
                     std::cout << "You chose to play again. " << std::endl;
@@ -194,7 +195,7 @@ int main() {
             if (rowDec < 4 && rowDec >= 1) {
                 next = std::cin.peek(); //set next char in line to next char variable
                 if (next == '\n') { 
-                    std::cout << "You're good to go" << std::endl;
+                   
                 }
                 else {
                     std::cin.ignore(100, '\n'); //flush bad input
@@ -206,7 +207,7 @@ int main() {
                 std::cout << "Invalid Try again" << std::endl;
                 continue;
             }
-            
+
             std::cout << "Enter Col Number -> ";
             std::cin >> colDec;
 
