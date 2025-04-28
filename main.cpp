@@ -13,9 +13,9 @@ class Board {
     std::cout << " +---+---+---+" << std::endl;
     for (int i = 0; i < Row; i++) {
         for (int j = 0; j < Col; j++) {
-            std::cout  << " │ "  << MainBoard[i][j];
+            std::cout  << " | "  << MainBoard[i][j];
         }
-    std::cout << " │ " << std::endl;
+    std::cout << " | " << std::endl;
     std::cout << " +---+---+---+" << std::endl;
 
     }
@@ -146,7 +146,7 @@ int main() {
         if (WinStatus) {
             char FinalDec;
             std::cout << "Would you like to try again?" << std::endl;
-            std::cout << "Y │ N" << std::endl;
+            std::cout << "Y | N" << std::endl;
             std::cin >> FinalDec;
 
             //exception handling
