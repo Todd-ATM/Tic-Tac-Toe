@@ -141,17 +141,38 @@ int main() {
             std::cout << "Y │ N" << std::endl;
             std::cin >> FinalDec;
 
-            std::toupper(FinalDec);
+            //exception handling
+            if (!std::cin) { //if user enters non number
+                std::cin.clear(); //clear fail state
+                std::cin.ignore(100, '\n'); //flush bad input
+                std::cout << "Please enter valid character... Y or N" << std::endl;
+                continue; //restart loop
+            }
 
-            if (FinalDec == 'Y') {
-                std::cout << "You chose to play again. " << std::endl;
-                main.resetBoard();
-                continue;
-            } else if (FinalDec = 'N') {
-                isPlaying = false;
-                break;
-            } else {
-                std::cout << "Invald input" << std::endl;
+            //set next to next character in cin stream
+            next = std::cin.peek();
+
+            if (next == '\n') {
+                std::toupper(FinalDec);
+
+                if (FinalDec == 'Y') {
+                    std::cout << "You chose to play again. " << std::endl;
+                    main.resetBoard();
+                    continue;
+                } 
+                 if (FinalDec == 'N') {
+                    isPlaying = false;
+                    break;
+                } else {
+                    std::cout << "Please enter valid character... Y or N" << std::endl;
+                    continue; //restart loop
+                }
+            }
+
+            else {
+                std::cin.ignore(100, '\n'); //flush bad input
+                std::cout << "Please enter valid character... Y or N" << std::endl;
+                continue; //restart loop
             }
 
         }
@@ -185,6 +206,7 @@ int main() {
                 std::cout << "Invalid Try again" << std::endl;
                 continue;
             }
+            
             std::cout << "Enter Col Number -> ";
             std::cin >> colDec;
 
@@ -209,15 +231,10 @@ int main() {
                     std::cout << "Please enter valid Col Number. Retry" << std::endl;
                     continue; //restart loop
                 }
-
             } else {
                 std::cout << "Invalid Try again" << std::endl;
                 continue;
             }
-
         }
-
         std::cout << "Thanks for playing. ";
     }
-
-
