@@ -20,9 +20,11 @@ class Board {
     }
     }
 
+    //should be fed standard input, e.g 1-3, not 0-2
     void MovePiece(int row, int col) {
         //scope
-        if (row < 3 && col < 3) {
+        if (row < 3 && row >= 0 && col < 3 && col >= 0) {
+
                         // if current player is X
                         if (CurrentPlayer == true) {
                             MainBoard[row][col] = playerX;
@@ -33,10 +35,6 @@ class Board {
                             checked[row][col] = true;
                         }
         }
-
-
-
-
     }
 
     bool checkWin(int &spaceChecker) {
@@ -69,7 +67,7 @@ class Board {
             }
             //last diagonal
              if (MainBoard[0][2] == MainBoard[1][1] && MainBoard[1][1] == MainBoard[2][0] && MainBoard[0][2] != ' ') {
-                winner = MainBoard[0][0];
+                winner = MainBoard[0][2];
                 std::cout << winner << ": Won the game" << std::endl;
                 spaceChecker = 0;
                 return true;
@@ -152,6 +150,8 @@ int main() {
             } else if (FinalDec = 'N') {
                 isPlaying = false;
                 break;
+            } else {
+                std::cout << "Invald input" << std::endl;
             }
 
         }
@@ -170,7 +170,7 @@ int main() {
                 std::cout << "Please enter valid NUMBER" << std::endl;
                 continue; //restart loop
             }
-            if (rowDec < 3) {
+            if (rowDec < 4 && rowDec >= 1) {
                 next = std::cin.peek(); //set next char in line to next char variable
                 if (next == '\n') { 
                     std::cout << "You're good to go" << std::endl;
@@ -184,6 +184,7 @@ int main() {
             }
             else {
                 std::cout << "Invalid Try again" << std::endl;
+                spaceChecker--;
                 continue;
             }
             std::cout << "Enter Col Number -> ";
@@ -193,12 +194,14 @@ int main() {
             if (!std::cin) { //if user enters non number
                 std::cin.clear(); //clear fail state
                 std::cin.ignore(100, '\n'); //flush bad input
-                std::cout << "Please enter valid Row Number. Retry" << std::endl;
+                std::cout << "Please enter valid Col Number. Retry" << std::endl;
                 continue; //restart loop
             }
-            if (colDec < 3 && rowDec < 3 && !main.checked[rowDec][colDec]) {
+            if (colDec < 4 && colDec >= 1 && rowDec < 4 && rowDec >= 1) {
                 next = std::cin.peek();
-                if (next == '\n') {
+                rowDec = rowDec - 1;
+                colDec = colDec - 1;
+                if (next == '\n' && !main.checked[rowDec][colDec]) {
                     main.MovePiece(rowDec, colDec);
                     main.DrawBoard();
                     CurrentTurn = main.change();
@@ -210,6 +213,7 @@ int main() {
 
             } else {
                 std::cout << "Invalid Try again" << std::endl;
+                spaceChecker--;
                 continue;
             }
 
